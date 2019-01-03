@@ -26,12 +26,12 @@
     <!--
        Product Name
     -->
-    <Name>WSO2 API Manager</Name>
+    <Name>WSO2Telco Hub</Name>
 
     <!--
        machine readable unique key to identify each product
     -->
-    <ServerKey>AM</ServerKey>
+    <ServerKey>Hub</ServerKey>
 
     <!--
        Product Version
