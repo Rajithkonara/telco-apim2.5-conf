@@ -147,9 +147,12 @@
 
 ## check and set response caching
 #if($responseCacheEnabled)
-<cache scope="per-host" collector="false" hashGenerator="org.wso2.carbon.mediator.cache.digest.REQUESTHASHGenerator" timeout="$!responseCacheTimeOut">
+<property name="request_id_temp" expression="$trp:REQUEST_ID"/>
+<header name="REQUEST_ID" scope="transport" action="remove"/>
+<cache scope="per-host" collector="false" hashGenerator="org.wso2.caching.digest.REQUESTHASHGenerator" timeout="$!responseCacheTimeOut">
     <implementation type="memory" maxSize="500"/>
 </cache>
+<header name="REQUEST_ID" expression="get-property('request_id_temp')" scope="transport" action="set"/>
 #end
 <property name="api.ut.backendRequestTime" expression="get-property('SYSTEM_TIME')"/>
 #if($isSoapToRestMode)
@@ -236,7 +239,10 @@ $out_sequences.get("$resource.getUriTemplate()").get($uri)
     #end
     #end
 </handler>
+
 #end
+<handler class="com.wso2telco.dep.validator.handler.APIInfoHandler"/>
+
 </handlers>
         #end
         #end
